@@ -1,0 +1,351 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.NET.Sdk.StaticWebAssets.Tasks</name>
+    </assembly>
+    <members>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.ApplyCompressionNegotiation.TaskEnvironment">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DiscoverPrecompressedAssets.TaskEnvironment">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.ComputeEndpointsForReferenceStaticWebAssets.TaskEnvironment">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.ComputeReferenceStaticWebAssetItems.TaskEnvironment">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.ComputeReferenceStaticWebAssetItems.FrameworkPattern">
+            <summary>
+            Semicolon-separated glob patterns (e.g. <c>**/*.js;**/*.wasm</c>).
+            Assets whose <c>RelativePath</c> matches any pattern will have their
+            <c>SourceType</c> set to <c>Framework</c>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetMatch">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetNode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetPattern">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetPatternArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetsDevelopmentManifest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAsset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetEndpoint">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetEndpointArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetEndpointProperty">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetEndpointPropertyArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetEndpointResponseHeader">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetEndpointResponseHeaderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetEndpointSelector">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetEndpointSelectorArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetEndpointsManifest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetPackageManifest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetsDiscoveryPattern">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetsDiscoveryPatternArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StaticWebAssetsManifest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.ReferencedProjectConfiguration">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.ReferencedProjectConfigurationArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.DictionaryStringStaticWebAssetNode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.DictionaryStringStaticWebAsset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.DateTimeOffset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.Int32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.Int64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.String">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.StringArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.Default">
+            <summary>
+            The default <see cref="T:System.Text.Json.Serialization.JsonSerializerContext"/> associated with a default <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.GeneratedSerializerOptions">
+            <summary>
+            The source-generated options associated with this context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetsJsonSerializerContext.GetTypeInfo(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAsset.FromTaskItem(Microsoft.Build.Framework.ITaskItem,Microsoft.Build.Framework.TaskEnvironment,System.Boolean)">
+            <summary>
+            Builds a <see cref="T:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAsset"/> from an MSBuild item, absolutizing path-bearing
+            metadata (ContentRoot, RelatedAsset) against the supplied <paramref name="env"/>'s
+            project directory rather than the process current directory. Required for multithreaded
+            MSBuild execution.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAsset.MaterializeFrameworkAsset(Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAsset,System.String,System.String,System.String,Microsoft.Build.Utilities.TaskLoggingHelper)">
+            <summary>
+            Materializes a framework asset by copying it to the consuming project's intermediate directory
+            and updating its metadata (Identity, ContentRoot, SourceId, BasePath, SourceType, AssetMode).
+            Used by both the P2P and NuGet package paths.
+            Returns the old identity and old base path so callers can remap endpoints and related assets.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetEndpoint.RemapEndpointRoute(Microsoft.AspNetCore.StaticWebAssets.Tasks.StaticWebAssetEndpoint,System.String,System.String,System.Collections.Generic.List{Microsoft.AspNetCore.StaticWebAssets.Tasks.PathTokenizer.Segment},System.Collections.Generic.List{Microsoft.AspNetCore.StaticWebAssets.Tasks.PathTokenizer.Segment})">
+            <summary>
+            Remaps the Route (and label endpoint property) on an endpoint by stripping the old base path
+            prefix and prepending the new base path. Used when materializing framework assets to update
+            endpoint routes from the library's base path to the consuming project's base path.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.StaticWebAssets.Tasks.TokenResolveMode">
+            <summary>
+            Controls how token expressions are resolved during path computation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.StaticWebAssets.Tasks.TokenResolveMode.None">
+            <summary>No preferences applied — all segments included as-is.</summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.StaticWebAssets.Tasks.TokenResolveMode.Pack">
+            <summary>Skip optional non-preferred. Include and resolve pack-only (~) segments. Used for nupkg physical paths.</summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.StaticWebAssets.Tasks.TokenResolveMode.Serve">
+            <summary>Skip optional non-preferred. Strip pack-only (~) segments entirely. Used for routes, dev manifest, copy-to-output.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssetEndpoints.TaskEnvironment">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.ByteArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.CopyCandidate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.DefineStaticWebAssetsCache">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.StaticWebAsset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.DictionaryStringCopyCandidate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.DictionaryStringStaticWebAsset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.HashSetString">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.DateTimeOffset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.Int64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.String">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.Default">
+            <summary>
+            The default <see cref="T:System.Text.Json.Serialization.JsonSerializerContext"/> associated with a default <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.GeneratedSerializerOptions">
+            <summary>
+            The source-generated options associated with this context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.AspNetCore.StaticWebAssets.Tasks.DefineStaticWebAssets.DefineStaticWebAssetsSerializerContext.GetTypeInfo(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.FilterStaticWebAssetGroups.TaskEnvironment">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.GenerateStaticWebAssetsManifest.TaskEnvironment">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.GenerateStaticWebAssetsPropsFile.TaskEnvironment">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.ImportMapSerializerContext.ImportMap">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.ImportMapSerializerContext.DictionaryStringDictionaryStringString">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.ImportMapSerializerContext.DictionaryStringString">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.ImportMapSerializerContext.String">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.ImportMapSerializerContext.Default">
+            <summary>
+            The default <see cref="T:System.Text.Json.Serialization.JsonSerializerContext"/> associated with a default <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.ImportMapSerializerContext.GeneratedSerializerOptions">
+            <summary>
+            The source-generated options associated with this context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.StaticWebAssets.Tasks.ImportMapSerializerContext.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.AspNetCore.StaticWebAssets.Tasks.ImportMapSerializerContext.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.AspNetCore.StaticWebAssets.Tasks.ImportMapSerializerContext.GetTypeInfo(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.AspNetCore.StaticWebAssets.Tasks.UpdatePackageStaticWebAssets.TaskEnvironment">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

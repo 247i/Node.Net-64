@@ -1,0 +1,648 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Components.Forms</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Components.Forms.ClientValidation.ClientValidationRule">
+            <summary>
+            Describes a single client-side validation rule produced by an <see cref="T:Microsoft.AspNetCore.Components.Forms.ClientValidation.IClientValidationAdapter"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ClientValidation.ClientValidationRule.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new rule with the specified name and error message.
+            </summary>
+            <param name="name">
+            The rule name. Must be non-empty and must match the name recognized by the client-side validator JavaScript.
+            </param>
+            <param name="errorMessage">
+            The formatted error message displayed when the rule fails. Must not be <see langword="null"/>;
+            pass <see cref="F:System.String.Empty"/> only if an empty message is intentional.
+            </param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.ClientValidation.ClientValidationRule.Name">
+            <summary>
+            Gets the rule name. Rendered as the suffix of <c>data-val-&lt;Name&gt;</c>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.ClientValidation.ClientValidationRule.ErrorMessage">
+            <summary>
+            Gets the formatted error message for this rule. Rendered as the value of <c>data-val-&lt;Name&gt;</c>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.ClientValidation.ClientValidationRule.Parameters">
+            <summary>
+            Gets the parameters associated with this rule, keyed by parameter name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ClientValidation.ClientValidationRule.WithParameter(System.String,System.Object)">
+            <summary>
+            Adds or replaces a parameter on the rule.
+            </summary>
+            <param name="name">The parameter name. Must be non-empty.</param>
+            <param name="value">
+            The parameter value. Must be JSON-primitive-shaped (string, bool, numeric primitives,
+            or <see langword="null"/>).
+            </param>
+            <returns>The same rule, to allow fluent chaining.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.Forms.ClientValidation.DefaultClientValidationService">
+            <summary>
+            Generates <c>data-val-*</c> HTML attributes from <see cref="T:System.ComponentModel.DataAnnotations.ValidationAttribute"/>s on model properties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.Forms.ClientValidation.IClientValidationAdapter">
+            <summary>
+            Implemented by <see cref="T:System.ComponentModel.DataAnnotations.ValidationAttribute"/> subclasses
+            that support client-side validation by emitting <c>data-val-*</c> HTML attributes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ClientValidation.IClientValidationAdapter.GetClientValidationRules(System.String)">
+            <summary>
+            Produces the client-side validation rules for this attribute.
+            Return an empty sequence if the attribute should not emit any client-side rule.
+            </summary>
+            <param name="errorMessage">
+            The pre-formatted (optionally localized) error message.
+            </param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.Forms.ClientValidation.IClientValidationService">
+            <summary>
+            Provides client-side validation HTML attributes (<c>data-val-*</c>) for form fields
+            based on their <see cref="T:System.ComponentModel.DataAnnotations.ValidationAttribute"/>s.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ClientValidation.IClientValidationService.GetClientValidationAttributes(Microsoft.AspNetCore.Components.Forms.FieldIdentifier)">
+            <summary>
+            Gets the <c>data-val-*</c> HTML attributes for a form field.
+            Returns <see langword="null"/> if no validation attributes apply.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator">
+            <summary>
+            Adds Data Annotations validation support to an <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
+            When rendering in a static SSR context, also activates client-side validation
+            by storing an <see cref="T:Microsoft.AspNetCore.Components.Forms.ClientValidation.IClientValidationService"/> on the <see cref="P:Microsoft.AspNetCore.Components.Forms.EditContext.Properties"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator.EnableClientValidation">
+            <summary>
+            Gets or sets whether client-side validation attributes (data-val-*) should be emitted
+            on input components within this form. Default is <c>true</c>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator.OnInitialized">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator.OnParametersSet">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator.Dispose(System.Boolean)">
+            <summary>
+            Releases resources used by the validator.
+            </summary>
+            <param name="disposing"><see langword="true"/> if managed resources should be released; otherwise, <see langword="false"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.Forms.EditContext">
+            <summary>
+            Holds metadata related to a data editing process, such as flags to indicate which
+            fields have been modified and the current set of validation messages.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.#ctor(System.Object)">
+            <summary>
+            Constructs an instance of <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
+            </summary>
+            <param name="model">The model object for the <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>. This object should hold the data being edited, for example as a set of properties.</param>
+        </member>
+        <member name="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnFieldChanged">
+            <summary>
+            An event that is raised when a field value changes.
+            </summary>
+        </member>
+        <member name="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequested">
+            <summary>
+            An event that is raised when validation is requested. Validator components subscribe
+            to this event to perform synchronous validation.
+            </summary>
+            <remarks>
+            For a given source of validation, a validator component should subscribe to exactly one
+            of <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequested"/> or <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequestedAsync"/>.
+            Subscribing to both causes the same validator to run twice on <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.ValidateAsync(System.Threading.CancellationToken)"/>,
+            with the second pass overwriting the first.
+            <para>
+            New validator implementations are recommended to subscribe to
+            <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequestedAsync"/> instead. This event remains supported for
+            existing sync validators and continues to be raised by both <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.Validate"/> and
+            <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.ValidateAsync(System.Threading.CancellationToken)"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequestedAsync">
+            <summary>
+            An async event that is raised when validation is requested. Validator components
+            subscribe to this event to perform async validation (e.g., database lookups, remote API calls).
+            Handlers are awaited by <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.ValidateAsync(System.Threading.CancellationToken)"/>. <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.Validate"/> also invokes
+            these handlers but requires each to complete synchronously; if any returns an incomplete
+            <see cref="T:System.Threading.Tasks.Task"/>, <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.Validate"/> throws <see cref="T:System.InvalidOperationException"/>.
+            </summary>
+            <remarks>
+            For a given source of validation, a validator component should subscribe to exactly one
+            of <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequested"/> or <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequestedAsync"/>.
+            </remarks>
+        </member>
+        <member name="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationStateChanged">
+            <summary>
+            An event that is raised when validation state has changed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.Field(System.String)">
+            <summary>
+            Supplies a <see cref="T:Microsoft.AspNetCore.Components.Forms.FieldIdentifier"/> corresponding to a specified field name
+            on this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>'s <see cref="P:Microsoft.AspNetCore.Components.Forms.EditContext.Model"/>.
+            </summary>
+            <param name="fieldName">The name of the editable field.</param>
+            <returns>A <see cref="T:Microsoft.AspNetCore.Components.Forms.FieldIdentifier"/> corresponding to a specified field name on this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>'s <see cref="P:Microsoft.AspNetCore.Components.Forms.EditContext.Model"/>.</returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.EditContext.Model">
+            <summary>
+            Gets the model object for this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.EditContext.Properties">
+            <summary>
+            Gets a collection of arbitrary properties associated with this instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.EditContext.ShouldUseFieldIdentifiers">
+            <summary>
+            Gets whether field identifiers should be generated for &lt;input&gt; elements.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.NotifyFieldChanged(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)">
+            <summary>
+            Signals that the value for the specified field has changed.
+            </summary>
+            <param name="fieldIdentifier">Identifies the field whose value has been changed.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.NotifyValidationStateChanged">
+            <summary>
+            Signals that some aspect of validation state has changed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.MarkAsUnmodified(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)">
+            <summary>
+            Clears any modification flag that may be tracked for the specified field.
+            </summary>
+            <param name="fieldIdentifier">Identifies the field whose modification flag (if any) should be cleared.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.MarkAsUnmodified">
+            <summary>
+            Clears all modification flags within this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsModified">
+            <summary>
+            Determines whether any of the fields in this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/> have been modified.
+            </summary>
+            <returns>True if any of the fields in this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/> have been modified; otherwise false.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.GetValidationMessages">
+             <summary>
+             Gets the current validation messages across all fields.
+            
+             This method does not perform validation itself. It only returns messages determined by previous validation actions.
+             </summary>
+             <returns>The current validation messages.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.GetValidationMessages(Microsoft.AspNetCore.Components.Forms.FieldIdentifier)">
+             <summary>
+             Gets the current validation messages for the specified field.
+            
+             This method does not perform validation itself. It only returns messages determined by previous validation actions.
+             </summary>
+             <param name="fieldIdentifier">Identifies the field whose current validation messages should be returned.</param>
+             <returns>The current validation messages for the specified field.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.GetValidationMessages(System.Linq.Expressions.Expression{System.Func{System.Object}})">
+             <summary>
+             Gets the current validation messages for the specified field.
+            
+             This method does not perform validation itself. It only returns messages determined by previous validation actions.
+             </summary>
+             <param name="accessor">Identifies the field whose current validation messages should be returned.</param>
+             <returns>The current validation messages for the specified field.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsModified(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)">
+            <summary>
+            Determines whether the specified fields in this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/> has been modified.
+            </summary>
+            <returns>True if the field has been modified; otherwise false.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsModified(System.Linq.Expressions.Expression{System.Func{System.Object}})">
+            <summary>
+            Determines whether the specified fields in this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/> has been modified.
+            </summary>
+            <param name="accessor">Identifies the field whose current validation messages should be returned.</param>
+            <returns>True if the field has been modified; otherwise false.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValid(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)">
+            <summary>
+            Determines whether the specified fields in this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/> has no associated validation messages.
+            </summary>
+            <returns>True if the field has no associated validation messages after validation; otherwise false.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValid(System.Linq.Expressions.Expression{System.Func{System.Object}})">
+            <summary>
+            Determines whether the specified fields in this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/> has no associated validation messages.
+            </summary>
+            <param name="accessor">Identifies the field whose current validation messages should be returned.</param>
+            <returns>True if the field has no associated validation messages after validation; otherwise false.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.Validate">
+            <summary>
+            Validates this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
+            </summary>
+            <returns>True if there are no validation messages after validation; otherwise false.</returns>
+            <remarks>
+            Validation must not be re-entered. Do not call <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.Validate"/> or
+            <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.ValidateAsync(System.Threading.CancellationToken)"/> from inside an <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequested"/>,
+            <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequestedAsync"/>, or <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationStateChanged"/>
+            handler attached to the same <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>; doing so produces undefined
+            behavior (in particular, it can cause infinite recursion via the validator's own
+            <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.NotifyValidationStateChanged"/> calls).
+            </remarks>
+            <exception cref="T:System.InvalidOperationException">
+            Thrown when an <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequestedAsync"/> handler does not complete synchronously.
+            Use <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.ValidateAsync(System.Threading.CancellationToken)"/> instead when async validators are registered.
+            </exception>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.ValidateAsync(System.Threading.CancellationToken)">
+            <summary>
+            Validates this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/> asynchronously.
+            Cancels any pending field-level async validation tasks, invokes the synchronous
+            <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequested"/> handlers, then invokes and awaits the asynchronous
+            <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequestedAsync"/> handlers concurrently. Exceptions from synchronous
+            handlers propagate to the caller, matching <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.Validate"/>. Any non-cancellation
+            exception thrown by an asynchronous handler is contained: the form is marked as faulted
+            (observable via the parameterless <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationFaulted"/>) and the method
+            returns <c>false</c>.
+            While the asynchronous portion is in flight, the parameterless
+            <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationPending"/> returns <c>true</c> so applications can show a global
+            "validating..." indicator without wrapping the call themselves. The form-level
+            <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationFaulted"/> result is updated only when a pass completes; it is
+            preserved across caller-cancelled passes.
+            </summary>
+            <param name="cancellationToken">A token that signals cancellation of this validation pass.
+            The token is exposed to async handlers via <see cref="P:Microsoft.AspNetCore.Components.Forms.ValidationRequestedEventArgs.CancellationToken"/>.
+            If the caller cancels the token, this method throws <see cref="T:System.OperationCanceledException"/>;
+            the form is not marked as faulted in that case and the previous form-level fault state is preserved.
+            The token bounds the in-flight pass only; field-level validation tasks that start independently
+            during the awaited window (for example, from user edits) are not linked to this token and
+            continue running.</param>
+            <returns>True if there are no validation messages after validation and no async handler
+            faulted; otherwise false.</returns>
+            <remarks>
+            Validation must not be re-entered. Do not call <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.Validate"/> or
+            <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.ValidateAsync(System.Threading.CancellationToken)"/> from inside an <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequested"/>,
+            <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequestedAsync"/>, or <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationStateChanged"/>
+            handler attached to the same <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>; doing so produces undefined
+            behavior.
+            </remarks>
+            <exception cref="T:System.OperationCanceledException">Thrown when <paramref name="cancellationToken"/>
+            is cancelled before or during the validation pass.</exception>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.AddValidationTask(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@,System.Threading.Tasks.Task,System.Threading.CancellationTokenSource)">
+            <summary>
+            Registers an async validation task for a specific field. The task is tracked for
+            pending/faulted state queries via <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationPending(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)"/>
+            and <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationFaulted(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)"/>. If a task is already tracked
+            for this field, the previously registered <see cref="T:System.Threading.CancellationTokenSource"/> is cancelled
+            and the new task replaces it. The <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/> takes ownership of the supplied
+            <paramref name="cts"/>: it will be cancelled if a subsequent validation supersedes this one,
+            and disposed once <paramref name="task"/> completes.
+            </summary>
+            <remarks>
+            If <paramref name="task"/> is already completed, it is settled synchronously: the field is
+            not parked in the pending state, a faulted task is surfaced via
+            <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationFaulted(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)"/>, and <paramref name="cts"/> is disposed.
+            <para>
+            Validators backing <paramref name="task"/> are expected to clear any prior validation
+            messages for the field up-front (before awaiting), and to avoid writing partial results
+            to a <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore"/> on a path that may subsequently throw. If a
+            validator does write partial state and then throws, those messages remain in the store
+            until cleared by a subsequent successful validation.
+            </para>
+            </remarks>
+            <param name="fieldIdentifier">Identifies the field being validated.</param>
+            <param name="task">The async validation task to track.</param>
+            <param name="cts">The <see cref="T:System.Threading.CancellationTokenSource"/> that can cancel the task.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationPending(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)">
+            <summary>
+            Returns <c>true</c> if the specified field has a pending async validation task.
+            A task is "pending" until the framework's observer has settled its outcome and cleared the
+            slot (i.e., not only until the task itself completes) so a consumer that waits for
+            <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationPending(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)"/> to become <c>false</c> is guaranteed
+            to also see the final <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationFaulted(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)"/> value.
+            </summary>
+            <param name="fieldIdentifier">Identifies the field to query.</param>
+            <returns><c>true</c> if async validation is in progress for the field; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationPending``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Returns <c>true</c> if the field identified by the <paramref name="accessor"/> expression
+            has a pending async validation task.
+            </summary>
+            <typeparam name="TField">The type of the field.</typeparam>
+            <param name="accessor">An expression that identifies the field, e.g. <c>() =&gt; model.Email</c>.</param>
+            <returns><c>true</c> if async validation is in progress for the field; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationPending">
+            <summary>
+            Returns <c>true</c> if a form-level <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.ValidateAsync(System.Threading.CancellationToken)"/> pass is currently in flight.
+            Suitable for driving form-wide UI such as disabling a submit button or showing a
+            "validating..." indicator for the current submission. Does not consider field-level pending
+            tasks (those are superseded when the next form-level pass starts); use the
+            <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationPending(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)"/> overload for per-field state.
+            </summary>
+            <returns><c>true</c> if a form-level validation pass is in progress; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationFaulted(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)">
+            <summary>
+            Returns <c>true</c> if the specified field's last async validation faulted
+            (threw a non-cancellation exception).
+            </summary>
+            <param name="fieldIdentifier">Identifies the field to query.</param>
+            <returns><c>true</c> if the field's last async validation faulted; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationFaulted``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Returns <c>true</c> if the field identified by the <paramref name="accessor"/> expression's
+            last async validation faulted (threw a non-cancellation exception).
+            </summary>
+            <typeparam name="TField">The type of the field.</typeparam>
+            <param name="accessor">An expression that identifies the field, e.g. <c>() =&gt; model.Email</c>.</param>
+            <returns><c>true</c> if the field's last async validation faulted; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationFaulted">
+            <summary>
+            Returns <c>true</c> if the most recent <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.ValidateAsync(System.Threading.CancellationToken)"/> pass observed an
+            unhandled exception from any <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequestedAsync"/> handler. A subsequent
+            successful <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.ValidateAsync(System.Threading.CancellationToken)"/> pass clears the flag; a caller-cancelled pass
+            preserves it. Use this to detect that validation itself failed (not just produced validation messages).
+            For per-field validator faults from <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.AddValidationTask(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@,System.Threading.Tasks.Task,System.Threading.CancellationTokenSource)"/>, use the <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.IsValidationFaulted(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)"/> overload.
+            </summary>
+            <returns><c>true</c> if the most recent <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.ValidateAsync(System.Threading.CancellationToken)"/> pass faulted; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.Forms.EditContextDataAnnotationsExtensions">
+            <summary>
+            Extension methods to add DataAnnotations validation to an <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContextDataAnnotationsExtensions.EnableDataAnnotationsValidation(Microsoft.AspNetCore.Components.Forms.EditContext,System.IServiceProvider)">
+            <summary>
+            Enables DataAnnotations validation support for the <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
+            </summary>
+            <param name="editContext">The <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.</param>
+            <param name="serviceProvider">The <see cref="T:System.IServiceProvider"/> to be used in the <see cref="T:System.ComponentModel.DataAnnotations.ValidationContext"/>.</param>
+            <returns>A disposable object whose disposal will remove DataAnnotations validation support from the <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.Forms.EditContextProperties">
+            <summary>
+            Holds arbitrary key/value pairs associated with an <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
+            This can be used to track additional metadata for application-specific purposes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.EditContextProperties.Item(System.Object)">
+            <summary>
+            Gets or sets a value in the collection.
+            </summary>
+            <param name="key">The key under which the value is stored.</param>
+            <returns>The stored value.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContextProperties.TryGetValue(System.Object,System.Object@)">
+            <summary>
+            Gets the value associated with the specified key, if any.
+            </summary>
+            <param name="key">The key under which the value is stored.</param>
+            <param name="value">The value, if present.</param>
+            <returns>True if the value was present, otherwise false.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.EditContextProperties.Remove(System.Object)">
+            <summary>
+            Removes the specified entry from the collection.
+            </summary>
+            <param name="key">The key of the entry to be removed.</param>
+            <returns>True if the value was present, otherwise false.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.Forms.FieldChangedEventArgs">
+            <summary>
+            Provides information about the <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnFieldChanged"/> event.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.FieldChangedEventArgs.#ctor(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.Components.Forms.FieldChangedEventArgs"/>.
+            </summary>
+            <param name="fieldIdentifier">The <see cref="T:Microsoft.AspNetCore.Components.Forms.FieldIdentifier"/></param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.FieldChangedEventArgs.FieldIdentifier">
+            <summary>
+            Identifies the field whose value has changed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.Forms.FieldIdentifier">
+            <summary>
+            Uniquely identifies a single field that can be edited. This may correspond to a property on a
+            model object, or can be any other named value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.AspNetCore.Components.Forms.FieldIdentifier"/> structure.
+            </summary>
+            <param name="accessor">An expression that identifies an object member.</param>
+            <typeparam name="TField">The field <see cref="T:System.Type"/>.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.FieldIdentifier.#ctor(System.Object,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.AspNetCore.Components.Forms.FieldIdentifier"/> structure.
+            </summary>
+            <param name="model">The object that owns the field.</param>
+            <param name="fieldName">The name of the editable field.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Model">
+            <summary>
+            Gets the object that owns the editable field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.FieldIdentifier.FieldName">
+            <summary>
+            Gets the name of the editable field.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.FieldIdentifier.GetHashCode">
+            <summary>
+            Returns the hash code for this field identifier.
+            </summary>
+            <returns>A hash code based on the model instance and field name.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Equals(System.Object)">
+            <summary>
+            Determines whether the specified object is equal to the current field identifier.
+            </summary>
+            <param name="obj">The object to compare with the current field identifier.</param>
+            <returns><see langword="true"/> if the specified object is equal to the current field identifier; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Equals(Microsoft.AspNetCore.Components.Forms.FieldIdentifier)">
+            <summary>
+            Determines whether the specified <see cref="T:Microsoft.AspNetCore.Components.Forms.FieldIdentifier"/> is equal to the current field identifier.
+            </summary>
+            <param name="otherIdentifier">The field identifier to compare with the current instance.</param>
+            <returns><see langword="true"/> if the two instances are equal; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore">
+            <summary>
+            Holds validation messages for an <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore.#ctor(Microsoft.AspNetCore.Components.Forms.EditContext)">
+            <summary>
+            Creates an instance of <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore"/>.
+            </summary>
+            <param name="editContext">The <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/> with which this store should be associated.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore.Add(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@,System.String)">
+            <summary>
+            Adds a validation message for the specified field.
+            </summary>
+            <param name="fieldIdentifier">The identifier for the field.</param>
+            <param name="message">The validation message.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore.Add(System.Linq.Expressions.Expression{System.Func{System.Object}},System.String)">
+            <summary>
+            Adds a validation message for the specified field.
+            </summary>
+            <param name="accessor">Identifies the field for which to add the message.</param>
+            <param name="message">The validation message.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore.Add(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Adds the messages from the specified collection for the specified field.
+            </summary>
+            <param name="fieldIdentifier">The identifier for the field.</param>
+            <param name="messages">The validation messages to be added.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore.Add(System.Linq.Expressions.Expression{System.Func{System.Object}},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Adds the messages from the specified collection for the specified field.
+            </summary>
+            <param name="accessor">Identifies the field for which to add the messages.</param>
+            <param name="messages">The validation messages to be added.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore.Item(Microsoft.AspNetCore.Components.Forms.FieldIdentifier)">
+             <summary>
+             Gets the validation messages within this <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore"/> for the specified field.
+            
+             To get the validation messages across all validation message stores, use <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.GetValidationMessages(Microsoft.AspNetCore.Components.Forms.FieldIdentifier)"/> instead
+             </summary>
+             <param name="fieldIdentifier">The identifier for the field.</param>
+             <returns>The validation messages for the specified field within this <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore"/>.</returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore.Item(System.Linq.Expressions.Expression{System.Func{System.Object}})">
+             <summary>
+             Gets the validation messages within this <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore"/> for the specified field.
+            
+             To get the validation messages across all validation message stores, use <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.GetValidationMessages(Microsoft.AspNetCore.Components.Forms.FieldIdentifier)"/> instead
+             </summary>
+             <param name="accessor">The identifier for the field.</param>
+             <returns>The validation messages for the specified field within this <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore.Clear">
+            <summary>
+            Removes all messages within this <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore.Clear(System.Linq.Expressions.Expression{System.Func{System.Object}})">
+            <summary>
+            Removes all messages within this <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore"/> for the specified field.
+            </summary>
+            <param name="accessor">Identifies the field for which to remove the messages.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore.Clear(Microsoft.AspNetCore.Components.Forms.FieldIdentifier@)">
+            <summary>
+            Removes all messages within this <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore"/> for the specified field.
+            </summary>
+            <param name="fieldIdentifier">The identifier for the field.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.Forms.ValidationRequestedEventArgs">
+            <summary>
+            Provides information about the <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationRequested"/> event.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.Forms.ValidationRequestedEventArgs.Empty">
+            <summary>
+            Gets a shared empty instance of <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationRequestedEventArgs"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ValidationRequestedEventArgs.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationRequestedEventArgs"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ValidationRequestedEventArgs.#ctor(System.Threading.CancellationToken)">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationRequestedEventArgs"/> with the specified
+            <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="cancellationToken">A token that signals when the caller has requested
+            cancellation of the in-flight async validation pass.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.Forms.ValidationRequestedEventArgs.CancellationToken">
+            <summary>
+            Gets a token that signals when the caller has requested cancellation of the in-flight
+            async validation pass. Synchronous handlers can ignore this; async handlers that perform
+            long-running work (database lookups, remote API calls) should pass it to their downstream
+            APIs so the work can be aborted promptly.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.Forms.ValidationStateChangedEventArgs">
+            <summary>
+            Provides information about the <see cref="E:Microsoft.AspNetCore.Components.Forms.EditContext.OnValidationStateChanged"/> event.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.Forms.ValidationStateChangedEventArgs.Empty">
+            <summary>
+            Gets a shared empty instance of <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationStateChangedEventArgs"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.Forms.ValidationStateChangedEventArgs.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationStateChangedEventArgs" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.HotReload.HotReloadManager.IsSubscribedTo">
+            <summary>
+            Gets a value that determines if OnDeltaApplied is subscribed to.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.HotReload.HotReloadManager.UpdateApplication(System.Type[])">
+            <summary>
+            MetadataUpdateHandler event. This is invoked by the hot reload host via reflection.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.ClientValidationServiceCollectionExtensions">
+            <summary>
+            Extension methods for registering client-side validation services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ClientValidationServiceCollectionExtensions.AddClientValidation(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Registers the default <see cref="T:Microsoft.AspNetCore.Components.Forms.ClientValidation.IClientValidationService"/> implementation,
+            which generates <c>data-val-*</c> HTML attributes from <c>DataAnnotations</c> validation attributes.
+            </summary>
+        </member>
+    </members>
+</doc>

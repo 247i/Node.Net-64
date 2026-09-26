@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Extensions.Options.DataAnnotations</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Extensions.Options.DataAnnotationValidateOptions`1">
+            <summary>
+            Async validation implementation for <see cref="T:Microsoft.Extensions.Options.DataAnnotationValidateOptions`1"/>.
+            </summary>
+            <summary>
+            Implementation of <see cref="T:Microsoft.Extensions.Options.IValidateOptions`1"/> that uses DataAnnotation's <see cref="T:System.ComponentModel.DataAnnotations.Validator"/> for validation.
+            </summary>
+            <typeparam name="TOptions">The instance being validated.</typeparam>
+        </member>
+        <member name="M:Microsoft.Extensions.Options.DataAnnotationValidateOptions`1.ValidateAsync(System.String,`0,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously validates a specific named options instance (or all when <paramref name="name"/> is null).
+            </summary>
+            <param name="name">The name of the options instance being validated.</param>
+            <param name="options">The options instance.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.Options.ValidateOptionsResult"/> result.</returns>
+            <remarks>
+            The <paramref name="cancellationToken"/> is propagated from
+            <c>Host.StartAsync(CancellationToken)</c>. By default, no startup timeout
+            is applied. Configure <c>HostOptions.StartupTimeout</c> or pass
+            a <see cref="T:System.Threading.CancellationToken"/> with a timeout to <c>Host.StartAsync</c>
+            to bound I/O-bound async validators:
+            <code>
+            builder.Services.Configure&lt;HostOptions&gt;(opts =&gt;
+                opts.StartupTimeout = TimeSpan.FromSeconds(30));
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Options.DataAnnotationValidateOptions`1.TryValidateOptionsAsync(System.Object,System.String,System.Collections.Generic.List{System.ComponentModel.DataAnnotations.ValidationResult},System.Collections.Generic.List{System.String},System.Collections.Generic.HashSet{System.Object},System.Threading.CancellationToken)">
+             <remarks>
+             Async counterpart of <see cref="M:Microsoft.Extensions.Options.DataAnnotationValidateOptions`1.TryValidateOptions(System.Object,System.String,System.Collections.Generic.List{System.ComponentModel.DataAnnotations.ValidationResult},System.Collections.Generic.List{System.String}@,System.Collections.Generic.HashSet{System.Object}@)"/>. Uses a tuple return
+             <c>(bool success, List&lt;string&gt;? errors)</c> instead of <c>ref</c> parameters
+             because <c>async</c> methods cannot have <c>ref</c>/<c>out</c> parameters.
+            
+             <c>visited</c> does not need to be returned — it is created <em>before</em> each
+             recursive call, so the callee always receives a non-null, shared instance.
+             <c>errors</c> must be returned because it may be lazily created
+             (<c>errors ??= new List&lt;string&gt;()</c>) inside the callee.
+             </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Options.DataAnnotationValidateOptions`1.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.Extensions.Options.DataAnnotationValidateOptions`1"/> .
+            </summary>
+            <param name="name">The name of the option.</param>
+        </member>
+        <member name="P:Microsoft.Extensions.Options.DataAnnotationValidateOptions`1.Name">
+            <summary>
+            Gets the options name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Options.DataAnnotationValidateOptions`1.Validate(System.String,`0)">
+            <summary>
+            Validates a specific named options instance (or all when <paramref name="name"/> is null).
+            </summary>
+            <param name="name">The name of the options instance being validated.</param>
+            <param name="options">The options instance.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.Options.ValidateOptionsResult"/> result.</returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.OptionsBuilderDataAnnotationsExtensions">
+            <summary>
+            Extension methods for adding configuration related options services to the DI container via <see cref="T:Microsoft.Extensions.Options.OptionsBuilder`1"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.OptionsBuilderDataAnnotationsExtensions.ValidateDataAnnotations``1(Microsoft.Extensions.Options.OptionsBuilder{``0})">
+            <summary>
+            Registers this options instance for validation of its DataAnnotations.
+            </summary>
+            <remarks>
+            Synchronous validation runs when the options instance is created or accessed. When targeting .NET 11 or later,
+            asynchronous validation (including <c>AsyncValidationAttribute</c>-derived attributes)
+            runs once at startup, and only when <c>ValidateOnStart()</c> is also called.
+            If <c>ValidateOnStart()</c> is not called, attributes deriving from
+            <c>AsyncValidationAttribute</c> are never evaluated asynchronously: runtime options access triggers only
+            synchronous validation, which invokes the attribute's synchronous fallback instead.
+            When using <c>AsyncValidationAttribute</c>-derived attributes, ensure the synchronous
+            <c>IsValid</c> fallback does not throw: synchronous validation still runs on every
+            options access, so a throwing fallback surfaces as an exception on each access (for example
+            when resolving <c>IOptions{TOptions}.Value</c>), even if startup validation succeeded.
+            </remarks>
+            <typeparam name="TOptions">The options type to be configured.</typeparam>
+            <param name="optionsBuilder">The options builder to add the services to.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.Options.OptionsBuilder`1"/> so that additional calls can be chained.</returns>
+        </member>
+    </members>
+</doc>
